@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PYTHONHTTPSVERIFY: "0"
-      PYTHONPATH: ""
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -44,13 +43,33 @@ jobs:
           python3 -m venv .venv
           . .venv/bin/activate
           python -m pip install --upgrade pip setuptools wheel --trusted-host pypi.org --trusted-host files.pythonhosted.org
-          python -m pip install --upgrade --force-reinstall certifi
           python -m pip install --upgrade chardet urllib3 idna requests
           python -m pip install --upgrade buildozer cython python-for-android
-          echo "=== Verify imports ==="
-          python -c "import certifi; print('certifi OK:', certifi.where())"
+          echo "=== Verify base ==="
           python -c "import buildozer; print('buildozer OK')"
           python -c "from pythonforandroid import __version__; print('p4a OK:', __version__)"
+
+      - name: Replace certifi module
+        run: |
+          . .venv/bin/activate
+          CERT_DIR=$(python -c "import site; print(site.getsitepackages()[0])")
+          echo "Site dir: $CERT_DIR"
+          BACKUP_DIR="${CERT_DIR}/certifi_backup"
+          if [ -d "${CERT_DIR}/certifi" ]; then
+            mv "${CERT_DIR}/certifi" "$BACKUP_DIR"
+            echo "Backed up certifi to $BACKUP_DIR"
+          fi
+          mkdir -p "${CERT_DIR}/certifi"
+          cat > "${CERT_DIR}/certifi/__init__.py" << 'EOF'
+import os
+
+WHERE_PATH = '/etc/ssl/certs/ca-certificates.crt'
+
+def where():
+    return WHERE_PATH
+EOF
+          echo "New certifi module created"
+          python -c "import certifi; print('certifi.where():', certifi.where())"
 
       - name: Create wrapper script
         run: |
@@ -59,6 +78,8 @@ import os
 import sys
 
 os.environ['PYTHONHTTPSVERIFY'] = '0'
+os.environ['SSL_CERT_FILE'] = '/etc/ssl/certs/ca-certificates.crt'
+os.environ['REQUESTS_CA_BUNDLE'] = '/etc/ssl/certs/ca-certificates.crt'
 
 import ssl
 try:
@@ -66,29 +87,17 @@ try:
 except Exception:
     pass
 
-import certifi
-_orig_where = certifi.where
-def _patched_where():
-    system_ca = '/etc/ssl/certs/ca-certificates.crt'
-    if os.path.exists(system_ca):
-        return system_ca
-    try:
-        return _orig_where()
-    except Exception:
-        return system_ca
-certifi.where = _patched_where
-
 from buildozer import __main__
 sys.exit(__main__.main())
 PYEOF
           echo "Wrapper created"
-          cat run_buildozer.py
 
       - name: Init Android SDK/NDK
         run: |
           set -e
           . .venv/bin/activate
-          echo "=== Test wrapper ==="
+          echo "=== Test ==="
+          python -c "import certifi; print('certifi.where():', certifi.where())"
           python run_buildozer.py --version
           echo "=== Init SDK ==="
           python run_buildozer.py android sdk 2>&1 | tail -30
