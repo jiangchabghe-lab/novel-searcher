@@ -5,6 +5,11 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+env:
+  PYTHONHTTPSVERIFY: "0"
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  PIP_DEFAULT_TIMEOUT: "120"
+
 jobs:
   build-apk:
     runs-on: ubuntu-latest
@@ -20,28 +25,55 @@ jobs:
       - name: Install system deps
         run: |
           sudo apt-get update
-          sudo apt-get install -y openjdk-17-jdk-headless autoconf libtool pkg-config \
-              zlib1g-dev libncurses5-dev libsdl2-dev libssl-dev libffi-dev liblzma-dev \
-              libbz2-dev libreadline-dev zip unzip python3-venv
+          sudo apt-get install -y --no-install-recommends \
+              openjdk-17-jdk-headless \
+              autoconf libtool pkg-config \
+              zlib1g-dev libncurses5-dev libsdl2-dev \
+              libssl-dev libffi-dev liblzma-dev \
+              libbz2-dev libreadline-dev \
+              zip unzip python3-venv python3-pip \
+              wget curl ca-certificates gnupg
 
       - name: Set Java home
         run: |
           echo "JAVA_HOME=$(readlink -f /usr/lib/jvm/java-17-openjdk-amd64)" >> $GITHUB_ENV
           echo "ANDROID_API=33" >> $GITHUB_ENV
+          echo "ANDROID_MINAPI=24" >> $GITHUB_ENV
 
-      - name: Build APK
+      - name: Prepare Python env
         run: |
           set -e
           python3 -m venv .venv
           . .venv/bin/activate
           python -m pip install --upgrade pip setuptools wheel
-          python -m pip install --upgrade "buildozer[android]" cython python-for-android certifi
+          python -m pip install --upgrade \
+              certifi chardet urllib3 idna requests \
+              buildozer cython python-for-android
+
+      - name: Init Android SDK/NDK
+        run: |
+          set -e
+          . .venv/bin/activate
+          python -c "import ssl, certifi; print('SSL cert path:', certifi.where())"
+          export PYTHONHTTPSVERIFY=0
+          export CURL_CA_BUNDLE=""
           buildozer --version
-          buildozer android sdk
-          buildozer android debug
+          buildozer android sdk 2>&1 | tail -30
+
+      - name: Build APK
+        run: |
+          set -e
+          . .venv/bin/activate
+          export PYTHONHTTPSVERIFY=0
+          export CURL_CA_BUNDLE=""
+          buildozer android debug 2>&1 | tail -50
+
+      - name: Copy APK to artifact dir
+        run: |
           mkdir -p dist
+          ls -lh bin/ 2>/dev/null || echo "bin/ not found"
           cp bin/*.apk dist/ 2>/dev/null || cp bin/*-debug.apk dist/ || true
-          ls -lh dist/
+          ls -lh dist/ 2>/dev/null
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
