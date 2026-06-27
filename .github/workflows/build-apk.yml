@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PYTHONHTTPSVERIFY: "0"
+      PYTHONPATH: ""
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -46,39 +47,57 @@ jobs:
           python -m pip install --upgrade --force-reinstall certifi
           python -m pip install --upgrade chardet urllib3 idna requests
           python -m pip install --upgrade buildozer cython python-for-android
-          CERT_PATH=$(python -c "import certifi; print(certifi.where())")
-          echo "Cert path: $CERT_PATH"
-          ls -la "$CERT_PATH"
-          head -5 "$CERT_PATH" || true
+          echo "=== Verify imports ==="
+          python -c "import certifi; print('certifi OK:', certifi.where())"
+          python -c "import buildozer; print('buildozer OK')"
+          python -c "from pythonforandroid import __version__; print('p4a OK:', __version__)"
 
-      - name: Fix SSL certs
+      - name: Create wrapper script
         run: |
-          set -e
-          . .venv/bin/activate
-          CERT_PATH=$(python -c "import certifi; print(certifi.where())")
-          echo "Cert path: $CERT_PATH"
-          # 用系统证书替换 certifi 的证书文件
-          if [ -f /etc/ssl/certs/ca-certificates.crt ]; then
-            cp /etc/ssl/certs/ca-certificates.crt "$CERT_PATH"
-            echo "Replaced certifi certs with system certs"
-          fi
-          # 验证
-          python -c "import ssl, certifi; ctx = ssl.create_default_context(cafile=certifi.where()); print('SSL OK')"
+          cat > run_buildozer.py << 'PYEOF'
+import os
+import sys
+
+os.environ['PYTHONHTTPSVERIFY'] = '0'
+
+import ssl
+try:
+    ssl._create_default_https_context = ssl._create_unverified_context
+except Exception:
+    pass
+
+import certifi
+_orig_where = certifi.where
+def _patched_where():
+    system_ca = '/etc/ssl/certs/ca-certificates.crt'
+    if os.path.exists(system_ca):
+        return system_ca
+    try:
+        return _orig_where()
+    except Exception:
+        return system_ca
+certifi.where = _patched_where
+
+from buildozer import __main__
+sys.exit(__main__.main())
+PYEOF
+          echo "Wrapper created"
+          cat run_buildozer.py
 
       - name: Init Android SDK/NDK
         run: |
           set -e
           . .venv/bin/activate
-          python -c "import buildozer; print('buildozer OK')"
-          python -c "import android; print('p4a OK')" 2>&1 || python -c "from pythonforandroid import __version__; print('p4a version:', __version__)"
-          buildozer --version
-          buildozer android sdk 2>&1 | tail -30
+          echo "=== Test wrapper ==="
+          python run_buildozer.py --version
+          echo "=== Init SDK ==="
+          python run_buildozer.py android sdk 2>&1 | tail -30
 
       - name: Build APK
         run: |
           set -e
           . .venv/bin/activate
-          buildozer android debug 2>&1 | tail -50
+          python run_buildozer.py android debug 2>&1 | tail -50
 
       - name: Copy APK to artifact dir
         run: |
