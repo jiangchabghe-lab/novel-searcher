@@ -1,0 +1,16 @@
+16:56:47 | INFO    | MainThread   | 程序启动，日志文件: E:\17301\Downloads\软件\0-自建程序\1-Python程序\小说\logs\novel_searcher_20260627_165646.log
+16:56:47 | INFO    | MainThread   | 已刷新保存列表，共 1 本小说
+16:56:50 | INFO    | MainThread   | UI 触发加载已保存小说: id=20260627_165414_457221
+16:56:50 | INFO    | MainThread   | 加载已保存小说成功: 《遮天》共 1822 章，耗时 43ms
+16:57:00 | INFO    | MainThread   | UI 触发搜索: '日月星辰'
+16:57:00 | INFO    | search       | 开始搜索: 关键字='日月星辰', 总章节=1822, 最大命中=5000, 模糊=False
+16:57:00 | INFO    | search       | [PERF] 搜索完成 耗时 37.7ms 命中 156 条，分布于 128 章
+16:57:00 | INFO    | MainThread   | 搜索完成: '日月星辰' 命中 156 条，耗时 39.0ms
+16:57:00 | INFO    | MainThread   | [PERF] 整理搜索结果 耗时 0.0ms 128 个章节分组
+16:57:00 | INFO    | MainThread   | 开始分批渲染 128 个章节到 Treeview
+16:57:00 | INFO    | MainThread   | Treeview 渲染完成：共 128 个章节
+16:57:00 | WARNING | MainThread   | Treeview 选中失败 iid=chapter_7: 'Treeview' object has no attribute 'blockSignals'
+16:57:00 | INFO    | MainThread   | 准备预览首个章节: index=7
+16:57:00 | INFO    | MainThread   | 开始预览章节: index=7, title='第006章 封禅之地', 长度=2208
+16:57:00 | WARNING | MainThread   | Treeview 选中失败 iid=7: 'Treeview' object has no attribute 'blockSignals'
+16:57:00 | INFO    | MainThread   | [PERF] 章节预览渲染 耗时 6.3ms 章节 7，共 2208 字

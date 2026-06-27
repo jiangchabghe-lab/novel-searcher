@@ -1,0 +1,7 @@
+19:13:33 | INFO    | MainThread   | 程序启动，日志文件: E:\17301\Downloads\软件\0-自建程序\1-Python程序\小说\logs\novel_searcher_20260627_191332.log
+19:13:33 | INFO    | MainThread   | 已刷新保存列表，共 1 本小说
+19:13:46 | INFO    | MainThread   | UI 触发加载已保存小说: id=20260627_171521_358332
+19:13:46 | INFO    | MainThread   | 加载已保存小说成功: 《遮天》共 1822 章，耗时 59ms
+19:13:48 | INFO    | MainThread   | 开始预览章节: index=17, title='第016章 如神祇临尘', 长度=3595
+19:13:48 | WARNING | MainThread   | Treeview 选中失败 iid=17: 'Treeview' object has no attribute 'blockSignals'
+19:13:48 | INFO    | MainThread   | [PERF] 章节预览渲染 耗时 116.6ms 章节 17，共 3595 字

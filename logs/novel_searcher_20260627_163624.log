@@ -1,0 +1,6 @@
+16:36:24 | INFO    | MainThread   | 开始加载文件: 遮天.epub
+16:36:29 | INFO    | MainThread   | [PERF] 加载 .epub 文件成功 耗时 4970.8ms 共 1822 章
+16:36:29 | INFO    | MainThread   | [PERF] 加载完成 耗时 4971.2ms 1822 章
+16:36:29 | INFO    | MainThread   | 开始搜索: 关键字='天宇轰鸣', 总章节=1822, 最大命中=5000, 模糊=False
+16:36:29 | INFO    | MainThread   | [PERF] 搜索完成 耗时 23.1ms 命中 3 条，分布于 3 章
+16:36:29 | INFO    | MainThread   | [PERF] 搜索完成 耗时 23.3ms 命中 3 条

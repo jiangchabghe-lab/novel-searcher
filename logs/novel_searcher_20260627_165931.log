@@ -1,0 +1,32 @@
+16:59:31 | INFO    | MainThread   | 已刷新保存列表，共 1 本小说
+16:59:33 | INFO    | MainThread   | UI 触发加载已保存小说: id=20260627_165414_457221
+16:59:33 | INFO    | MainThread   | 加载已保存小说成功: 《遮天》共 1822 章，耗时 40ms
+16:59:48 | INFO    | MainThread   | UI 触发搜索: '珍惜矿物'
+16:59:48 | INFO    | search       | 开始搜索: 关键字='珍惜矿物', 总章节=1822, 最大命中=5000, 模糊=False
+16:59:48 | INFO    | search       | [PERF] 搜索完成 耗时 27.0ms 命中 0 条，分布于 0 章
+16:59:48 | INFO    | MainThread   | 搜索完成: '珍惜矿物' 命中 0 条，耗时 37.9ms
+16:59:48 | INFO    | MainThread   | [PERF] 整理搜索结果 耗时 0.0ms 0 个章节分组
+16:59:48 | INFO    | MainThread   | 开始分批渲染 0 个章节到 Treeview
+16:59:48 | INFO    | MainThread   | Treeview 渲染完成：共 0 个章节
+16:59:59 | INFO    | MainThread   | UI 触发搜索: '不是很大'
+16:59:59 | INFO    | search       | 开始搜索: 关键字='不是很大', 总章节=1822, 最大命中=5000, 模糊=False
+16:59:59 | INFO    | search       | [PERF] 搜索完成 耗时 27.7ms 命中 52 条，分布于 49 章
+16:59:59 | INFO    | MainThread   | 搜索完成: '不是很大' 命中 52 条，耗时 28.0ms
+16:59:59 | INFO    | MainThread   | [PERF] 整理搜索结果 耗时 0.0ms 49 个章节分组
+16:59:59 | INFO    | MainThread   | 开始分批渲染 49 个章节到 Treeview
+16:59:59 | INFO    | MainThread   | Treeview 渲染完成：共 49 个章节
+16:59:59 | WARNING | MainThread   | Treeview 选中失败 iid=chapter_202: 'Treeview' object has no attribute 'blockSignals'
+16:59:59 | INFO    | MainThread   | 准备预览首个章节: index=202
+16:59:59 | INFO    | MainThread   | 开始预览章节: index=202, title='第201章 太古稀珍', 长度=4653
+16:59:59 | ERROR   | MainThread   | 预览章节异常: '_tkinter.tkapp' object has no attribute 'txt_view'
+Traceback (most recent call last):
+  File "E:\17301\Downloads\软件\0-自建程序\1-Python程序\小说\novel_searcher.py", line 966, in _feed_step
+    self._show_chapter(self._feed_first_cidx, self._feed_kw)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\17301\Downloads\软件\0-自建程序\1-Python程序\小说\novel_searcher.py", line 1041, in _show_chapter
+    self.txt_view.configure(state=tk.NORMAL)
+    ^^^^^^^^^^^^^
+  File "C:\Users\17301\AppData\Local\Programs\Python\Python314\Lib\tkinter\__init__.py", line 2571, in __getattr__
+    return getattr(self.tk, attr)
+AttributeError: '_tkinter.tkapp' object has no attribute 'txt_view'
+17:00:16 | INFO    | MainThread   | 开始预览章节: index=1129, title='第1128章 神矿物', 长度=3938

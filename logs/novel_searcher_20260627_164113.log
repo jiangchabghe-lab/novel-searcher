@@ -1,0 +1,35 @@
+16:41:13 | INFO    | MainThread   | 程序启动，日志文件: E:\17301\Downloads\软件\0-自建程序\1-Python程序\小说\logs\novel_searcher_20260627_164113.log
+16:43:02 | INFO    | MainThread   | UI 触发加载: E:/17301/Downloads/软件/0-自建程序/1-Python程序/小说/遮天.epub
+16:43:02 | INFO    | loader       | 开始加载文件: E:/17301/Downloads/软件/0-自建程序/1-Python程序/小说/遮天.epub
+16:43:07 | INFO    | loader       | [PERF] 加载 .epub 文件成功 耗时 5087.6ms 共 1822 章
+16:43:07 | INFO    | MainThread   | 加载成功: 1822 章，耗时 5089ms
+16:43:07 | INFO    | MainThread   | 开始重建章节目录
+16:43:07 | INFO    | MainThread   | [PERF] 重建章节目录 耗时 0.3ms 共 1822 章
+16:43:23 | INFO    | MainThread   | UI 触发搜索: '活动久远'
+16:43:23 | INFO    | search       | 开始搜索: 关键字='活动久远', 总章节=1822, 最大命中=5000, 模糊=False
+16:43:23 | INFO    | search       | [PERF] 搜索完成 耗时 25.5ms 命中 0 条，分布于 0 章
+16:43:23 | INFO    | MainThread   | 搜索完成: '活动久远' 命中 0 条，耗时 25.8ms
+16:43:23 | INFO    | MainThread   | [PERF] 整理搜索结果 耗时 0.0ms 0 个章节分组
+16:43:23 | INFO    | MainThread   | 开始分批渲染 0 个章节到 Treeview
+16:43:23 | INFO    | MainThread   | Treeview 渲染完成：共 0 个章节
+16:43:43 | INFO    | MainThread   | UI 触发搜索: '一个强大的对手'
+16:43:43 | INFO    | search       | 开始搜索: 关键字='一个强大的对手', 总章节=1822, 最大命中=5000, 模糊=False
+16:43:43 | INFO    | search       | [PERF] 搜索完成 耗时 27.9ms 命中 4 条，分布于 4 章
+16:43:43 | INFO    | MainThread   | 搜索完成: '一个强大的对手' 命中 4 条，耗时 28.1ms
+16:43:43 | INFO    | MainThread   | [PERF] 整理搜索结果 耗时 0.0ms 4 个章节分组
+16:43:43 | INFO    | MainThread   | 开始分批渲染 4 个章节到 Treeview
+16:43:43 | INFO    | MainThread   | Treeview 渲染完成：共 4 个章节
+16:43:43 | WARNING | MainThread   | Treeview 选中失败 iid=chapter_992: 'Treeview' object has no attribute 'blockSignals'
+16:43:43 | INFO    | MainThread   | 准备预览首个章节: index=992
+16:43:43 | INFO    | MainThread   | 开始预览章节: index=992, title='第991章 星空下的最强者', 长度=4278
+16:43:43 | WARNING | MainThread   | Treeview 选中失败 iid=992: 'Treeview' object has no attribute 'blockSignals'
+16:43:43 | INFO    | MainThread   | [PERF] 章节预览渲染 耗时 56.8ms 章节 992，共 4278 字
+16:43:52 | INFO    | MainThread   | 开始预览章节: index=1127, title='第1126章 踏天路', 长度=3413
+16:43:52 | WARNING | MainThread   | Treeview 选中失败 iid=1127: 'Treeview' object has no attribute 'blockSignals'
+16:43:52 | INFO    | MainThread   | [PERF] 章节预览渲染 耗时 20.8ms 章节 1127，共 3413 字
+16:43:57 | INFO    | MainThread   | 开始预览章节: index=1142, title='第1141章 进化', 长度=3350
+16:43:57 | WARNING | MainThread   | Treeview 选中失败 iid=1142: 'Treeview' object has no attribute 'blockSignals'
+16:43:57 | INFO    | MainThread   | [PERF] 章节预览渲染 耗时 10.3ms 章节 1142，共 3350 字
+16:43:58 | INFO    | MainThread   | 开始预览章节: index=1127, title='第1126章 踏天路', 长度=3413
+16:43:58 | WARNING | MainThread   | Treeview 选中失败 iid=1127: 'Treeview' object has no attribute 'blockSignals'
+16:43:58 | INFO    | MainThread   | [PERF] 章节预览渲染 耗时 1.3ms 章节 1127，共 3413 字

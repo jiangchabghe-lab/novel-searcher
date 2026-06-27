@@ -1,0 +1,41 @@
+17:04:58 | INFO    | MainThread   | 程序启动，日志文件: E:\17301\Downloads\软件\0-自建程序\1-Python程序\小说\logs\novel_searcher_20260627_170458.log
+17:04:58 | INFO    | MainThread   | 已刷新保存列表，共 1 本小说
+17:05:00 | INFO    | MainThread   | UI 触发加载已保存小说: id=20260627_165414_457221
+17:05:00 | INFO    | MainThread   | 加载已保存小说成功: 《遮天》共 1822 章，耗时 43ms
+17:05:27 | INFO    | MainThread   | UI 触发搜索: '老府主'
+17:05:27 | INFO    | search       | 开始搜索: 关键字='老府主', 总章节=1822, 最大命中=5000, 模糊=False
+17:05:27 | INFO    | search       | [PERF] 搜索完成 耗时 39.5ms 命中 49 条，分布于 20 章
+17:05:27 | INFO    | MainThread   | 搜索完成: '老府主' 命中 49 条，耗时 39.7ms
+17:05:27 | INFO    | MainThread   | [PERF] 整理搜索结果 耗时 0.0ms 20 个章节分组
+17:05:27 | INFO    | MainThread   | 开始分批渲染 20 个章节到 Treeview
+17:05:27 | INFO    | MainThread   | Treeview 渲染完成：共 20 个章节
+17:05:27 | WARNING | MainThread   | Treeview 选中失败 iid=chapter_829: 'Treeview' object has no attribute 'blockSignals'
+17:05:27 | INFO    | MainThread   | 准备预览首个章节: index=829
+17:05:27 | INFO    | MainThread   | 开始预览章节: index=829, title='第828章 人族诸圣现', 长度=4603
+17:05:27 | WARNING | MainThread   | Treeview 选中失败 iid=829: 'Treeview' object has no attribute 'blockSignals'
+17:05:27 | INFO    | MainThread   | [PERF] 章节预览渲染 耗时 81.9ms 章节 829，共 4603 字
+17:06:00 | INFO    | MainThread   | UI 触发搜索: '金色战神'
+17:06:00 | INFO    | search       | 开始搜索: 关键字='金色战神', 总章节=1822, 最大命中=5000, 模糊=False
+17:06:01 | INFO    | search       | [PERF] 搜索完成 耗时 33.5ms 命中 9 条，分布于 4 章
+17:06:01 | INFO    | MainThread   | 搜索完成: '金色战神' 命中 9 条，耗时 33.7ms
+17:06:01 | INFO    | MainThread   | [PERF] 整理搜索结果 耗时 0.0ms 4 个章节分组
+17:06:01 | INFO    | MainThread   | 开始分批渲染 4 个章节到 Treeview
+17:06:01 | INFO    | MainThread   | Treeview 渲染完成：共 4 个章节
+17:06:01 | WARNING | MainThread   | Treeview 选中失败 iid=chapter_367: 'Treeview' object has no attribute 'blockSignals'
+17:06:01 | INFO    | MainThread   | 准备预览首个章节: index=367
+17:06:01 | INFO    | MainThread   | 开始预览章节: index=367, title='第366章 活捉圣女', 长度=4789
+17:06:01 | WARNING | MainThread   | Treeview 选中失败 iid=367: 'Treeview' object has no attribute 'blockSignals'
+17:06:01 | INFO    | MainThread   | [PERF] 章节预览渲染 耗时 5.2ms 章节 367，共 4789 字
+17:06:24 | INFO    | MainThread   | UI 触发搜索: '黑色液体'
+17:06:24 | INFO    | search       | 开始搜索: 关键字='黑色液体', 总章节=1822, 最大命中=5000, 模糊=False
+17:06:24 | INFO    | search       | [PERF] 搜索完成 耗时 27.6ms 命中 2 条，分布于 1 章
+17:06:24 | INFO    | MainThread   | 搜索完成: '黑色液体' 命中 2 条，耗时 27.8ms
+17:06:24 | INFO    | MainThread   | [PERF] 整理搜索结果 耗时 0.0ms 1 个章节分组
+17:06:24 | INFO    | MainThread   | 开始分批渲染 1 个章节到 Treeview
+17:06:24 | INFO    | MainThread   | Treeview 渲染完成：共 1 个章节
+17:06:24 | WARNING | MainThread   | Treeview 选中失败 iid=chapter_1129: 'Treeview' object has no attribute 'blockSignals'
+17:06:24 | INFO    | MainThread   | 准备预览首个章节: index=1129
+17:06:24 | INFO    | MainThread   | 开始预览章节: index=1129, title='第1128章 神矿物', 长度=3938
+17:06:24 | WARNING | MainThread   | Treeview 选中失败 iid=1129: 'Treeview' object has no attribute 'blockSignals'
+17:06:24 | INFO    | MainThread   | [PERF] 章节预览渲染 耗时 9.6ms 章节 1129，共 3938 字
+17:06:26 | DEBUG   | MainThread   | 跳过重复预览: 章节 1129

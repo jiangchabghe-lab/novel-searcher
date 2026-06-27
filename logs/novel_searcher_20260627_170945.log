@@ -1,0 +1,54 @@
+17:09:45 | INFO    | MainThread   | 程序启动，日志文件: E:\17301\Downloads\软件\0-自建程序\1-Python程序\小说\logs\novel_searcher_20260627_170945.log
+17:09:46 | INFO    | MainThread   | 已刷新保存列表，共 1 本小说
+17:09:49 | INFO    | MainThread   | UI 触发加载已保存小说: id=20260627_165414_457221
+17:09:49 | INFO    | MainThread   | 加载已保存小说成功: 《遮天》共 1822 章，耗时 42ms
+17:09:59 | INFO    | MainThread   | UI 触发搜索: '一道身影'
+17:09:59 | INFO    | search       | 开始搜索: 关键字='一道身影', 总章节=1822, 最大命中=5000, 模糊=False
+17:09:59 | INFO    | search       | [PERF] 搜索完成 耗时 40.1ms 命中 109 条，分布于 94 章
+17:09:59 | INFO    | MainThread   | 搜索完成: '一道身影' 命中 109 条，耗时 40.3ms
+17:09:59 | INFO    | MainThread   | [PERF] 整理搜索结果 耗时 0.0ms 94 个章节分组
+17:09:59 | INFO    | MainThread   | 开始分批渲染 94 个章节到 Treeview
+17:09:59 | INFO    | MainThread   | Treeview 渲染完成：共 94 个章节
+17:09:59 | WARNING | MainThread   | Treeview 选中失败 iid=chapter_35: 'Treeview' object has no attribute 'blockSignals'
+17:09:59 | INFO    | MainThread   | 准备预览首个章节: index=35
+17:09:59 | INFO    | MainThread   | 开始预览章节: index=35, title='第034章 荒之传说', 长度=3468
+17:09:59 | WARNING | MainThread   | Treeview 选中失败 iid=35: 'Treeview' object has no attribute 'blockSignals'
+17:09:59 | INFO    | MainThread   | [PERF] 章节预览渲染 耗时 13.4ms 章节 35，共 3468 字
+17:10:21 | INFO    | MainThread   | UI 触发搜索: '红毛人形生物'
+17:10:21 | INFO    | search       | 开始搜索: 关键字='红毛人形生物', 总章节=1822, 最大命中=5000, 模糊=False
+17:10:21 | INFO    | search       | [PERF] 搜索完成 耗时 28.5ms 命中 2 条，分布于 2 章
+17:10:21 | INFO    | MainThread   | 搜索完成: '红毛人形生物' 命中 2 条，耗时 28.8ms
+17:10:21 | INFO    | MainThread   | [PERF] 整理搜索结果 耗时 0.1ms 2 个章节分组
+17:10:21 | INFO    | MainThread   | 开始分批渲染 2 个章节到 Treeview
+17:10:21 | INFO    | MainThread   | Treeview 渲染完成：共 2 个章节
+17:10:21 | WARNING | MainThread   | Treeview 选中失败 iid=chapter_630: 'Treeview' object has no attribute 'blockSignals'
+17:10:21 | INFO    | MainThread   | 准备预览首个章节: index=630
+17:10:21 | INFO    | MainThread   | 开始预览章节: index=630, title='第629章 蔡家祖上', 长度=3717
+17:10:21 | WARNING | MainThread   | Treeview 选中失败 iid=630: 'Treeview' object has no attribute 'blockSignals'
+17:10:21 | INFO    | MainThread   | [PERF] 章节预览渲染 耗时 7.3ms 章节 630，共 3717 字
+17:10:32 | INFO    | MainThread   | UI 触发搜索: '全身红毛'
+17:10:32 | INFO    | search       | 开始搜索: 关键字='全身红毛', 总章节=1822, 最大命中=5000, 模糊=False
+17:10:32 | INFO    | search       | [PERF] 搜索完成 耗时 27.0ms 命中 0 条，分布于 0 章
+17:10:32 | INFO    | MainThread   | 搜索完成: '全身红毛' 命中 0 条，耗时 27.7ms
+17:10:32 | INFO    | MainThread   | [PERF] 整理搜索结果 耗时 0.0ms 0 个章节分组
+17:10:32 | INFO    | MainThread   | 开始分批渲染 0 个章节到 Treeview
+17:10:32 | INFO    | MainThread   | Treeview 渲染完成：共 0 个章节
+17:10:34 | INFO    | MainThread   | UI 触发搜索: '全身红毛'
+17:10:34 | INFO    | search       | 开始搜索: 关键字='全身红毛', 总章节=1822, 最大命中=5000, 模糊=False
+17:10:34 | INFO    | search       | [PERF] 搜索完成 耗时 29.5ms 命中 0 条，分布于 0 章
+17:10:34 | INFO    | MainThread   | 搜索完成: '全身红毛' 命中 0 条，耗时 29.7ms
+17:10:34 | INFO    | MainThread   | [PERF] 整理搜索结果 耗时 0.0ms 0 个章节分组
+17:10:34 | INFO    | MainThread   | 开始分批渲染 0 个章节到 Treeview
+17:10:34 | INFO    | MainThread   | Treeview 渲染完成：共 0 个章节
+17:10:44 | INFO    | MainThread   | UI 触发搜索: '实力强大'
+17:10:44 | INFO    | search       | 开始搜索: 关键字='实力强大', 总章节=1822, 最大命中=5000, 模糊=False
+17:10:44 | INFO    | search       | [PERF] 搜索完成 耗时 28.3ms 命中 77 条，分布于 75 章
+17:10:44 | INFO    | MainThread   | 搜索完成: '实力强大' 命中 77 条，耗时 28.6ms
+17:10:44 | INFO    | MainThread   | [PERF] 整理搜索结果 耗时 0.0ms 75 个章节分组
+17:10:44 | INFO    | MainThread   | 开始分批渲染 75 个章节到 Treeview
+17:10:44 | INFO    | MainThread   | Treeview 渲染完成：共 75 个章节
+17:10:44 | WARNING | MainThread   | Treeview 选中失败 iid=chapter_108: 'Treeview' object has no attribute 'blockSignals'
+17:10:44 | INFO    | MainThread   | 准备预览首个章节: index=108
+17:10:44 | INFO    | MainThread   | 开始预览章节: index=108, title='第107章 登上圣山', 长度=4706
+17:10:44 | WARNING | MainThread   | Treeview 选中失败 iid=108: 'Treeview' object has no attribute 'blockSignals'
+17:10:44 | INFO    | MainThread   | [PERF] 章节预览渲染 耗时 4.7ms 章节 108，共 4706 字

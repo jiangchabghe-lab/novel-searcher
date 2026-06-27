@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#2563eb">
+<title>小说内容快速检索（安卓版）</title>
+<style>
+  :root{
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+    --bg:#f6f7fb;
+    --card:#ffffff;
+    --border:#e5e7eb;
+    --text:#111827;
+    --muted:#6b7280;
+    --accent:#fde68a;
+    --accent-fg:#92400e;
+    --danger:#dc2626;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--text);font-size:15px;line-height:1.55;
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  header{
+    position:sticky;top:0;z-index:20;
+    background:var(--primary);color:#fff;
+    padding:12px 16px;
+    display:flex;align-items:center;gap:8px;
+    box-shadow:0 2px 6px rgba(0,0,0,.08);
+  }
+  header h1{font-size:17px;margin:0;font-weight:600}
+  header .spacer{flex:1}
+  .tab-bar{
+    display:flex;background:#fff;border-bottom:1px solid var(--border);
+    position:sticky;top:50px;z-index:19;
+  }
+  .tab-bar button{
+    flex:1;padding:12px 6px;background:none;border:0;font-size:14px;color:var(--muted);
+    border-bottom:3px solid transparent;font-weight:500;
+  }
+  .tab-bar button.active{color:var(--primary);border-bottom-color:var(--primary)}
+  main{padding:12px}
+  .panel{display:none}
+  .panel.active{display:block}
+  .card{
+    background:var(--card);border:1px solid var(--border);border-radius:10px;
+    padding:12px;margin-bottom:12px;
+  }
+  .card h2{font-size:15px;margin:0 0 8px;color:var(--text)}
+  .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .row.grow>*{flex:1}
+  label{font-size:13px;color:var(--muted);margin-right:4px}
+  input[type=text],input[type=search],input[type=number],input[type=file],textarea,select{
+    width:100%;padding:10px 12px;font-size:15px;
+    border:1px solid var(--border);border-radius:8px;background:#fff;color:var(--text);
+    -webkit-appearance:none;appearance:none;
+  }
+  input:focus,textarea:focus,select:focus{outline:2px solid var(--primary);outline-offset:-1px}
+  input[type=file]{padding:8px}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:6px;
+    padding:10px 14px;font-size:15px;font-weight:500;border-radius:8px;
+    border:1px solid transparent;cursor:pointer;
+    background:var(--primary);color:#fff;min-height:44px;min-width:44px;
+    -webkit-appearance:none;appearance:none;
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn[disabled]{opacity:.5;cursor:not-allowed}
+  .btn.secondary{background:#fff;color:var(--primary);border-color:var(--primary)}
+  .btn.ghost{background:transparent;color:var(--primary);border-color:var(--border)}
+  .btn.danger{background:var(--danger)}
+  .btn.small{padding:6px 10px;font-size:13px;min-height:32px;min-width:32px}
+  .chip{
+    display:inline-block;padding:3px 8px;border-radius:999px;background:#eef2ff;
+    color:var(--primary-dark);font-size:12px;margin-right:4px
+  }
+  .field{margin-bottom:10px}
+  .status{
+    margin-top:8px;font-size:13px;color:var(--muted);
+  }
+  .loader{
+    display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.4);
+    border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;
+    vertical-align:-2px;margin-right:6px
+  }
+  .loader.dark{border-color:rgba(0,0,0,.15);border-top-color:var(--primary)}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .chapter-item, .result-item, .saved-item{
+    padding:10px 12px;border:1px solid var(--border);border-radius:8px;
+    background:#fff;margin-bottom:8px;cursor:pointer;
+    transition:background .15s, border-color .15s;
+  }
+  .chapter-item:active, .result-item:active, .saved-item:active{background:#f3f4f6}
+  .chapter-item .title{font-weight:500;font-size:14.5px;color:var(--text)}
+  .chapter-item .idx{color:var(--muted);font-size:12px;margin-right:6px}
+  .result-item .chapter{font-weight:600;font-size:14px;margin-bottom:4px}
+  .result-item .chapter .count{color:var(--muted);font-weight:400;font-size:12px}
+  .result-item .snippet{color:#374151;font-size:13.5px;line-height:1.5}
+  mark{background:var(--accent);color:var(--accent-fg);padding:0 2px;border-radius:2px}
+  .chapter-body{
+    white-space:pre-wrap;word-break:break-word;font-size:15px;line-height:1.8;
+    font-family:"Source Han Serif SC","Noto Serif CJK SC",Georgia,serif;
+    padding:12px;max-height:70vh;overflow:auto;
+    background:#fff;border:1px solid var(--border);border-radius:8px;
+  }
+  .chapter-body mark{background:var(--accent);color:var(--accent-fg)}
+  .meta{font-size:12px;color:var(--muted)}
+  .saved-item .name{font-weight:500}
+  .saved-item .meta{margin-top:3px}
+  .empty{text-align:center;color:var(--muted);padding:24px 8px;font-size:14px}
+  .toolbar{display:flex;gap:8px;margin-bottom:8px}
+  .toolbar .btn{padding:8px 12px;font-size:14px;min-height:36px}
+  .checkbox-row{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;margin-bottom:6px}
+  .checkbox-row label{color:var(--text);display:flex;align-items:center;gap:4px}
+  .checkbox-row input{width:auto}
+  .chapter-list{max-height:60vh;overflow:auto}
+  .result-list{max-height:60vh;overflow:auto}
+  .section-title{font-size:13px;color:var(--muted);margin:12px 0 6px}
+  .title-bar{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .title-bar .title{flex:1;font-size:16px;font-weight:600}
+  .error{background:#fef2f2;color:var(--danger);border:1px solid #fecaca;padding:10px;border-radius:8px;font-size:14px}
+  .success{background:#ecfdf5;color:#047857;border:1px solid #a7f3d0;padding:10px;border-radius:8px;font-size:14px}
+  details summary{cursor:pointer;padding:6px 0}
+  details[open] summary{margin-bottom:6px}
+  @media (min-width:900px){
+    .layout{display:grid;grid-template-columns:1fr 1.4fr;gap:12px;align-items:start}
+    .layout .left .chapter-list{max-height:65vh}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>📖 小说快速检索</h1>
+  <span class="chip" id="header-chip">未加载</span>
+</header>
+
+<div class="tab-bar" id="tabs">
+  <button data-tab="load" class="active">加载</button>
+  <button data-tab="search">搜索</button>
+  <button data-tab="saved">收藏</button>
+  <button data-tab="chapter">章节</button>
+</div>
+
+<main>
+  <!-- 加载 -->
+  <section class="panel active" id="panel-load">
+    <div class="card">
+      <h2>选择小说文件</h2>
+      <div class="field">
+        <input type="file" id="file-input" accept=".txt,.epub">
+      </div>
+      <div class="row grow">
+        <button class="btn" id="btn-load">解析并建立索引</button>
+      </div>
+      <div class="status" id="load-status">支持 .txt / .epub，文件仅在本机解析，不会上传云端。</div>
+    </div>
+
+    <div class="card" id="current-info-card" style="display:none">
+      <h2>当前小说</h2>
+      <div id="current-info"></div>
+      <div class="row" style="margin-top:10px;flex-wrap:wrap">
+        <input type="text" id="save-name" placeholder="输入保存名称">
+        <button class="btn" id="btn-save">保存到收藏</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 搜索 -->
+  <section class="panel" id="panel-search">
+    <div class="card">
+      <div class="field">
+        <input type="search" id="kw" placeholder="输入关键字，例如：林动、神魂、突破">
+      </div>
+      <div class="checkbox-row">
+        <label><input type="checkbox" id="case-sensitive"> 区分大小写</label>
+        <label><input type="checkbox" id="fuzzy"> 模糊（错字 1 字）</label>
+      </div>
+      <div class="row grow">
+        <button class="btn" id="btn-search">搜索</button>
+        <button class="btn ghost" id="btn-clear-res" type="button">清空</button>
+      </div>
+      <div class="status" id="search-status"></div>
+    </div>
+    <div id="result-container"></div>
+  </section>
+
+  <!-- 收藏 -->
+  <section class="panel" id="panel-saved">
+    <div class="card">
+      <h2>收藏的小说</h2>
+      <div class="status" id="saved-status">所有收藏保存在服务器的 saved_novels 目录，多设备可直接载入。</div>
+    </div>
+    <div id="saved-container"></div>
+  </section>
+
+  <!-- 章节预览 -->
+  <section class="panel" id="panel-chapter">
+    <div class="card">
+      <div class="title-bar">
+        <span class="title" id="chapter-title">章节预览</span>
+        <button class="btn ghost small" id="btn-prev">上一章</button>
+        <button class="btn ghost small" id="btn-next">下一章</button>
+      </div>
+      <div id="chapter-meta" class="meta"></div>
+      <div style="margin:8px 0">
+        <input type="search" id="hl-kw" placeholder="在本章中高亮关键字（可选）">
+      </div>
+      <div class="chapter-body" id="chapter-body">
+        选择左侧章节或搜索结果中的条目，即可在此阅读原文。
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+const API = {
+  status: "/api/status",
+  upload: "/api/upload",
+  chapters: (id) => `/api/chapters${id ? "/" + id : ""}`,
+  search: (kw, opt={}) => {
+    const p = new URLSearchParams();
+    p.set("keyword", kw);
+    if (opt.case_sensitive) p.set("case_sensitive","1");
+    if (opt.fuzzy) p.set("fuzzy","1");
+    if (opt.context) p.set("context", opt.context);
+    if (opt.max_hits) p.set("max_hits", opt.max_hits);
+    return `/api/search?${p.toString()}`;
+  },
+  savedList: "/api/saved",
+  save: "/api/saved/save",
+  loadSaved: (id) => `/api/saved/load/${id}`,
+  deleteSaved: (id) => `/api/saved/delete/${id}`,
+  savedChapter: (id, idx) => `/api/saved/${id}/chapters/${idx}`,
+  savedSearch: (id, kw, opt={}) => {
+    const p = new URLSearchParams();
+    p.set("keyword", kw);
+    if (opt.case_sensitive) p.set("case_sensitive","1");
+    if (opt.fuzzy) p.set("fuzzy","1");
+    if (opt.context) p.set("context", opt.context);
+    return `/api/saved/${id}/search?${p.toString()}`;
+  }
+};
+
+const state = {
+  current: null,       // { chapters:[{index,title}], source_name, novel_id }
+  chapterIndex: null,
+  chapterListeningId: null,
+};
+
+const $ = (id) => document.getElementById(id);
+const h = (tag, props={}, ...children) => {
+  const el = document.createElement(tag);
+  for (const k in props){
+    if (k === "class") el.className = props[k];
+    else if (k === "style") el.style.cssText = props[k];
+    else if (k.startsWith("on") && typeof props[k] === "function") el.addEventListener(k.slice(2).toLowerCase(), props[k]);
+    else if (k === "html") el.innerHTML = props[k];
+    else if (k === "text") el.textContent = props[k];
+    else el.setAttribute(k, props[k]);
+  }
+  for (const c of children){
+    if (c == null || c === false) continue;
+    if (Array.isArray(c)) c.forEach(ch => { if (ch != null && ch !== false) el.appendChild(ch); });
+    else if (typeof c === "string" || typeof c === "number") el.appendChild(document.createTextNode(String(c)));
+    else el.appendChild(c);
+  }
+  return el;
+};
+
+async function fetchJSON(url, opt={}){
+  const res = await fetch(url, opt);
+  const data = await res.json().catch(()=>({ok:false,error:"网络错误"}));
+  return data;
+}
+
+function switchTab(tab){
+  document.querySelectorAll(".tab-bar button").forEach(b=>{
+    b.classList.toggle("active", b.dataset.tab===tab);
+  });
+  document.querySelectorAll(".panel").forEach(p=>{
+    p.classList.toggle("active", p.id === "panel-" + tab);
+  });
+  if (tab === "saved") renderSavedList();
+  if (tab === "chapter") renderChapterList();
+}
+
+document.querySelectorAll(".tab-bar button").forEach(b=>{
+  b.addEventListener("click", ()=>switchTab(b.dataset.tab));
+});
+
+async function refreshStatus(){
+  const d = await fetchJSON(API.status);
+  if (!d.ok && !d.loaded) return d;
+  state.current = {
+    chapters: d.chapters_count ? null : [], // chapters 按需拉
+    chapters_count: d.chapters_count || 0,
+    source_name: d.source_name || "",
+    novel_id: d.novel_id || null,
+  };
+  $("header-chip").textContent = d.loaded
+    ? `${d.source_name} · ${d.chapters_count}章`
+    : "未加载";
+  const card = $("current-info-card");
+  if (d.loaded){
+    card.style.display = "";
+    $("current-info").innerHTML = `
+      <div><span class="chip">当前</span>${d.source_name}</div>
+      <div class="meta">共 ${d.chapters_count} 章</div>
+      ${d.novel_id ? `<div class="meta">收藏 ID: ${d.novel_id}</div>` : ""}
+    `;
+    $("save-name").value = d.source_name.replace(/\.[^.]+$/, "") || "";
+  } else {
+    card.style.display = "none";
+  }
+  return d;
+}
+
+async function doUpload(){
+  const file = $("file-input").files[0];
+  if (!file){
+    $("load-status").innerHTML = `<span class="error">请先选择文件</span>`;
+    return;
+  }
+  $("btn-load").disabled = true;
+  $("load-status").innerHTML = `<span class="loader dark"></span>正在解析 ${file.name} ...`;
+  const fd = new FormData();
+  fd.append("file", file);
+  try{
+    const res = await fetch(API.upload, { method:"POST", body: fd });
+    const d = await res.json();
+    if (!d.ok){
+      $("load-status").innerHTML = `<span class="error">解析失败：${d.error}</span>`;
+      return;
+    }
+    state.current = {
+      chapters: d.chapters || [],
+      chapters_count: d.chapters_count,
+      source_name: d.filename,
+      novel_id: null,
+    };
+    $("load-status").innerHTML = `<span class="success">解析成功：${d.filename}，共 ${d.chapters_count} 章</span>`;
+    $("file-input").value = "";
+    $("header-chip").textContent = `${d.filename} · ${d.chapters_count}章`;
+    $("current-info-card").style.display = "";
+    $("current-info").innerHTML = `
+      <div><span class="chip">当前</span>${d.filename}</div>
+      <div class="meta">共 ${d.chapters_count} 章</div>
+      ${d.truncated ? `<div class="meta">章节列表较长，已仅展示前 200 条。使用搜索或章节过滤查看完整列表。</div>` : ""}
+    `;
+    $("save-name").value = d.filename.replace(/\.[^.]+$/, "");
+    renderChapterList();
+    switchTab("chapter");
+  }catch(e){
+    $("load-status").innerHTML = `<span class="error">请求错误：${e.message}</span>`;
+  }finally{
+    $("btn-load").disabled = false;
+  }
+}
+
+async function doSave(){
+  if (!state.current || !state.current.chapters_count){
+    alert("请先加载一本小说");
+    return;
+  }
+  const name = ($("save-name").value || "").trim();
+  if (!name){ alert("请输入保存名称"); return; }
+  const res = await fetch(API.save, {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({ name })
+  });
+  const d = await res.json();
+  if (d.ok){
+    state.current.novel_id = d.id;
+    alert(`已保存《${d.name}》，可在「收藏」页下次直接载入。`);
+  } else {
+    alert("保存失败：" + d.error);
+  }
+}
+
+async function doSearch(){
+  const kw = ($("kw").value || "").trim();
+  if (!kw){ alert("请输入关键字"); return; }
+  const caseSensitive = $("case-sensitive").checked;
+  const fuzzy = $("fuzzy").checked;
+  const container = $("result-container");
+  container.innerHTML = `<div class="status"><span class="loader dark"></span>正在搜索…</div>`;
+  try{
+    let d;
+    if (state.current && state.current.novel_id && !state.current.chapters){
+      d = await fetchJSON(API.savedSearch(state.current.novel_id, kw, { case_sensitive: caseSensitive, fuzzy }));
+    } else {
+      d = await fetchJSON(API.search(kw, { case_sensitive: caseSensitive, fuzzy }));
+    }
+    if (!d.ok){
+      container.innerHTML = `<div class="error">搜索失败：${d.error}</div>`;
+      return;
+    }
+    $("search-status").textContent = `关键字 “${kw}” 共 ${d.total_hits} 处匹配，分布于 ${d.total_chapters} 章，耗时 ${d.elapsed_ms || ""}ms`;
+    if (!d.groups.length){
+      container.innerHTML = `<div class="empty">未找到匹配</div>`;
+      return;
+    }
+    const list = h("div", {class:"result-list"});
+    d.groups.forEach(g=>{
+      list.appendChild(h("div", {
+        class:"result-item",
+        onclick: ()=>openChapter(g.chapter_index, g.chapter_title, state.current && state.current.novel_id, kw, caseSensitive)
+      },
+        h("div", {class:"chapter"},
+          `第${g.chapter_index}章 ${g.chapter_title} `,
+          h("span", {class:"count"}, `· ${g.count}处`)
+        ),
+        h("div", {class:"snippet", html: g.snippet_html || g.snippet})
+      ));
+    });
+    container.innerHTML = "";
+    container.appendChild(list);
+  }catch(e){
+    container.innerHTML = `<div class="error">请求错误：${e.message}</div>`;
+  }
+}
+
+async function renderChapterList(){
+    const container = $("panel-chapter");
+    let listEl = document.getElementById("chapter-list");
+    if (listEl) listEl.remove();
+    if (!state.current || !state.current.chapters_count){
+      listEl = h("div", {id:"chapter-list", class:"chapter-list"},
+        h("div", {class:"empty"}, "尚未加载小说。到「加载」页上传 .txt / .epub 文件，或到「收藏」页载入已保存小说。")
+      );
+      container.appendChild(listEl);
+      return;
+    }
+    let chapters = state.current.chapters;
+    if (!chapters || !chapters.length){
+      let d;
+      if (state.current.novel_id){
+        d = await fetchJSON(`/api/saved/${state.current.novel_id}/chapters-list`);
+      } else {
+        d = await fetchJSON(API.chapters());
+      }
+      if (d.ok){
+        state.current.chapters = d.chapters;
+        state.current.chapters_count = d.novel ? d.novel.chapters_count : (d.chapters_count || d.chapters.length);
+        chapters = d.chapters;
+      }
+    }
+  const list = h("div", {id:"chapter-list", class:"chapter-list"});
+  const filterBar = h("div", {class:"field"},
+    h("input", {
+      type:"search",
+      placeholder:"过滤章节标题",
+      oninput: (e)=>{
+        const q = e.target.value.toLowerCase().trim();
+        Array.from(list.querySelectorAll(".chapter-item")).forEach(item=>{
+          const t = item.querySelector(".title").textContent.toLowerCase();
+          item.style.display = (!q || t.includes(q)) ? "" : "none";
+        });
+      }
+    })
+  );
+  list.appendChild(filterBar);
+  if (!chapters || !chapters.length){
+    list.appendChild(h("div", {class:"empty"}, "无章节"));
+  } else {
+    chapters.forEach(c=>{
+      list.appendChild(h("div", {
+        class:"chapter-item",
+        onclick: ()=>openChapter(c.index, c.title, state.current && state.current.novel_id)
+      },
+        h("div", {},
+          h("span", {class:"idx"}, `[${c.index}]`),
+          h("span", {class:"title"}, c.title)
+        )
+      ));
+    });
+  }
+  container.appendChild(list);
+}
+
+async function openChapter(idx, title, novelId=null, kw="", caseSensitive=false){
+  state.chapterIndex = idx;
+  $("chapter-title").textContent = `第${idx}章 ${title || ""}`;
+  $("chapter-meta").textContent = novelId ? `来自收藏` : `来自当前加载`;
+  $("hl-kw").value = kw || "";
+  const body = $("chapter-body");
+  body.innerHTML = `<span class="loader dark"></span>正在加载章节…`;
+  try{
+    let url;
+    if (novelId){
+      url = `/api/saved/${novelId}/chapters/${idx}`;
+    } else {
+      url = API.chapters(idx);
+    }
+    const params = new URLSearchParams();
+    if (kw){
+      params.set("keyword", kw);
+      if (caseSensitive) params.set("case_sensitive","1");
+    }
+    const qs = params.toString();
+    if (qs) url += (url.indexOf("?") === -1 ? "?" : "&") + qs;
+    const d = await fetchJSON(url);
+    if (!d.ok){
+      body.innerHTML = `<div class="error">${d.error}</div>`;
+      return;
+    }
+    body.innerHTML = d.chapter.html || d.chapter.text.replace(/\n/g, "<br>");
+  }catch(e){
+    body.innerHTML = `<div class="error">加载失败：${e.message}</div>`;
+  }
+  switchTab("chapter");
+}
+
+async function renderSavedList(){
+  const container = $("saved-container");
+  container.innerHTML = `<div class="status">正在加载收藏列表…</div>`;
+  try{
+    const d = await fetchJSON(API.savedList);
+    if (!d.ok){
+      container.innerHTML = `<div class="error">${d.error || "加载失败"}</div>`;
+      return;
+    }
+    if (!d.list || !d.list.length){
+      container.innerHTML = `<div class="empty">还没有收藏的小说。在「加载」页解析小说后点击「保存到收藏」即可。</div>`;
+      return;
+    }
+    const list = h("div");
+    d.list.forEach(item=>{
+      list.appendChild(h("div", {class:"saved-item"},
+        h("div", {class:"name"}, item.name),
+        h("div", {class:"meta"},
+          `${item.chapters_count} 章`,
+          item.saved_at ? ` · 保存于 ${item.saved_at}` : "",
+          item.source_file ? ` · 源文件 ${item.source_file}` : ""
+        ),
+        h("div", {class:"row", style:"margin-top:8px;flex-wrap:wrap"},
+          h("button", {class:"btn small", onclick:()=>loadSaved(item.id)},"载入"),
+          h("button", {class:"btn small ghost", onclick:()=>{
+            if (confirm(`确定删除《${item.name}》？`)) deleteSaved(item.id);
+          }},"删除")
+        )
+      ));
+    });
+    container.innerHTML = "";
+    container.appendChild(list);
+  }catch(e){
+    container.innerHTML = `<div class="error">加载失败：${e.message}</div>`;
+  }
+}
+
+async function loadSaved(id){
+  const d = await fetch(API.loadSaved(id), {method:"POST"});
+  const j = await d.json();
+  if (!j.ok){ alert("载入失败：" + j.error); return; }
+  state.current = {
+    chapters: j.chapters || [],
+    chapters_count: j.novel.chapters_count,
+    source_name: j.novel.name,
+    novel_id: j.novel.id,
+  };
+  $("header-chip").textContent = `${j.novel.name} · ${j.novel.chapters_count}章`;
+  $("load-status").innerHTML = `<span class="success">已载入收藏《${j.novel.name}》</span>`;
+  $("current-info-card").style.display = "";
+  $("current-info").innerHTML = `
+    <div><span class="chip">收藏</span>${j.novel.name}</div>
+    <div class="meta">共 ${j.novel.chapters_count} 章 · ID ${j.novel.id}</div>
+  `;
+  $("save-name").value = j.novel.name;
+  renderChapterList();
+  switchTab("chapter");
+}
+
+async function deleteSaved(id){
+  const d = await fetchJSON(API.deleteSaved(id), {method:"POST"});
+  if (d.ok) renderSavedList();
+  else alert("删除失败");
+}
+
+// 章节导航
+document.addEventListener("click", (e)=>{
+  if (e.target.id === "btn-prev" || e.target.id === "btn-next"){
+    // handled below
+  }
+});
+$("btn-prev").addEventListener("click", ()=>navChapter(-1));
+$("btn-next").addEventListener("click", ()=>navChapter(+1));
+
+function navChapter(delta){
+  if (!state.chapterIndex || !state.current) return;
+  const chapters = state.current.chapters || [];
+  if (!chapters.length){
+    alert("请先加载或载入一本小说");
+    return;
+  }
+  const curIdx = state.chapterIndex;
+  const pos = chapters.findIndex(c => c.index === curIdx);
+  const next = chapters[Math.max(0, Math.min(chapters.length-1, pos + delta))];
+  if (!next) return;
+  const kw = $("hl-kw").value.trim();
+  openChapter(next.index, next.title, state.current.novel_id || null, kw, $("case-sensitive").checked);
+}
+
+$("hl-kw").addEventListener("keydown", (e)=>{
+  if (e.key === "Enter" && state.chapterIndex){
+    openChapter(state.chapterIndex, $("chapter-title").textContent.replace(/^第\d+章\s*/,""), state.current && state.current.novel_id, $("hl-kw").value, $("case-sensitive").checked);
+  }
+});
+
+// 事件绑定
+$("btn-load").addEventListener("click", doUpload);
+$("btn-save").addEventListener("click", doSave);
+$("btn-search").addEventListener("click", doSearch);
+$("btn-clear-res").addEventListener("click", ()=>{
+  $("result-container").innerHTML = "";
+  $("search-status").textContent = "";
+});
+$("kw").addEventListener("keydown", (e)=>{
+  if (e.key === "Enter") doSearch();
+});
+$("hl-kw").addEventListener("keydown", (e)=>{
+  if (e.key === "Enter" && state.chapterIndex){
+    openChapter(state.chapterIndex, $("chapter-title").textContent.replace(/^第\d+章\s*/,""), state.current && state.current.novel_id, $("hl-kw").value, $("kw") && false);
+  }
+});
+
+// 启动
+refreshStatus().then(()=>{
+  renderChapterList();
+});
+</script>
+</body>
+</html>

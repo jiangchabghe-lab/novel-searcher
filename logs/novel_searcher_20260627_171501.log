@@ -1,0 +1,32 @@
+17:15:01 | INFO    | MainThread   | 程序启动，日志文件: E:\17301\Downloads\软件\0-自建程序\1-Python程序\小说\logs\novel_searcher_20260627_171501.log
+17:15:01 | INFO    | MainThread   | 已刷新保存列表，共 1 本小说
+17:15:04 | INFO    | MainThread   | UI 触发加载已保存小说: id=20260627_165414_457221
+17:15:04 | INFO    | MainThread   | 加载已保存小说成功: 《遮天》共 1822 章，耗时 42ms
+17:15:07 | INFO    | MainThread   | 已刷新保存列表，共 0 本小说
+17:15:07 | INFO    | MainThread   | 已删除保存小说: id=20260627_165414_457221, name=遮天
+17:15:12 | INFO    | MainThread   | UI 触发加载: E:/17301/Downloads/软件/0-自建程序/1-Python程序/小说/遮天.epub
+17:15:12 | INFO    | loader       | 开始加载文件: E:/17301/Downloads/软件/0-自建程序/1-Python程序/小说/遮天.epub
+17:15:17 | INFO    | loader       | [PERF] 加载 .epub 文件成功 耗时 5027.3ms 共 1822 章
+17:15:17 | INFO    | MainThread   | 加载成功: 1822 章，耗时 5028ms
+17:15:17 | INFO    | MainThread   | 开始重建章节目录
+17:15:17 | INFO    | MainThread   | [PERF] 重建章节目录 耗时 1.4ms 共 1822 章
+17:15:21 | INFO    | MainThread   | 已刷新保存列表，共 1 本小说
+17:15:21 | INFO    | MainThread   | 小说保存成功: 遮天, id=20260627_171521_358332, 共 1822 章
+17:15:36 | INFO    | MainThread   | UI 触发搜索: '宇宙飞船'
+17:15:36 | INFO    | search       | 开始搜索: 关键字='宇宙飞船', 总章节=1822, 最大命中=5000, 模糊=False
+17:15:36 | INFO    | search       | [PERF] 搜索完成 耗时 26.2ms 命中 41 条，分布于 18 章
+17:15:36 | INFO    | MainThread   | 搜索完成: '宇宙飞船' 命中 41 条，耗时 26.4ms
+17:15:36 | INFO    | MainThread   | [PERF] 整理搜索结果 耗时 0.0ms 18 个章节分组
+17:15:36 | INFO    | MainThread   | 开始分批渲染 18 个章节到 Treeview
+17:15:36 | INFO    | MainThread   | Treeview 渲染完成：共 18 个章节
+17:15:36 | WARNING | MainThread   | Treeview 选中失败 iid=chapter_458: 'Treeview' object has no attribute 'blockSignals'
+17:15:36 | INFO    | MainThread   | 准备预览首个章节: index=458
+17:15:36 | INFO    | MainThread   | 开始预览章节: index=458, title='第457章 临不死山', 长度=4774
+17:15:36 | WARNING | MainThread   | Treeview 选中失败 iid=458: 'Treeview' object has no attribute 'blockSignals'
+17:15:36 | INFO    | MainThread   | [PERF] 章节预览渲染 耗时 2.8ms 章节 458，共 4774 字
+17:15:47 | INFO    | MainThread   | 开始预览章节: index=1131, title='第1130章 打劫外星人', 长度=3426
+17:15:47 | WARNING | MainThread   | Treeview 选中失败 iid=1131: 'Treeview' object has no attribute 'blockSignals'
+17:15:47 | INFO    | MainThread   | [PERF] 章节预览渲染 耗时 13.1ms 章节 1131，共 3426 字
+17:16:21 | INFO    | MainThread   | 开始预览章节: index=1130, title='第1129章 追寻青帝', 长度=3619
+17:16:21 | WARNING | MainThread   | Treeview 选中失败 iid=1130: 'Treeview' object has no attribute 'blockSignals'
+17:16:21 | INFO    | MainThread   | [PERF] 章节预览渲染 耗时 2.3ms 章节 1130，共 3619 字

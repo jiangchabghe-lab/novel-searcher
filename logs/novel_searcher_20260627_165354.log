@@ -1,0 +1,37 @@
+16:53:54 | INFO    | MainThread   | 程序启动，日志文件: E:\17301\Downloads\软件\0-自建程序\1-Python程序\小说\logs\novel_searcher_20260627_165354.log
+16:53:54 | INFO    | MainThread   | 已刷新保存列表，共 0 本小说
+16:54:02 | INFO    | MainThread   | UI 触发加载: E:/17301/Downloads/软件/0-自建程序/1-Python程序/小说/遮天.epub
+16:54:02 | INFO    | loader       | 开始加载文件: E:/17301/Downloads/软件/0-自建程序/1-Python程序/小说/遮天.epub
+16:54:07 | INFO    | loader       | [PERF] 加载 .epub 文件成功 耗时 5050.6ms 共 1822 章
+16:54:07 | INFO    | MainThread   | 加载成功: 1822 章，耗时 5063ms
+16:54:07 | INFO    | MainThread   | 开始重建章节目录
+16:54:07 | INFO    | MainThread   | [PERF] 重建章节目录 耗时 0.3ms 共 1822 章
+16:54:14 | INFO    | MainThread   | 已刷新保存列表，共 1 本小说
+16:54:14 | INFO    | MainThread   | 小说保存成功: 遮天, id=20260627_165414_457221, 共 1822 章
+16:54:59 | INFO    | MainThread   | UI 触发搜索: '死亡国度'
+16:54:59 | INFO    | search       | 开始搜索: 关键字='死亡国度', 总章节=1822, 最大命中=5000, 模糊=False
+16:54:59 | INFO    | search       | [PERF] 搜索完成 耗时 27.5ms 命中 10 条，分布于 5 章
+16:54:59 | INFO    | MainThread   | 搜索完成: '死亡国度' 命中 10 条，耗时 30.0ms
+16:54:59 | INFO    | MainThread   | [PERF] 整理搜索结果 耗时 0.0ms 5 个章节分组
+16:54:59 | INFO    | MainThread   | 开始分批渲染 5 个章节到 Treeview
+16:54:59 | INFO    | MainThread   | Treeview 渲染完成：共 5 个章节
+16:54:59 | WARNING | MainThread   | Treeview 选中失败 iid=chapter_1122: 'Treeview' object has no attribute 'blockSignals'
+16:54:59 | INFO    | MainThread   | 准备预览首个章节: index=1122
+16:54:59 | INFO    | MainThread   | 开始预览章节: index=1122, title='第1121章 蓝魔渊', 长度=3492
+16:54:59 | WARNING | MainThread   | Treeview 选中失败 iid=1122: 'Treeview' object has no attribute 'blockSignals'
+16:54:59 | INFO    | MainThread   | [PERF] 章节预览渲染 耗时 93.0ms 章节 1122，共 3492 字
+16:55:09 | INFO    | MainThread   | 开始预览章节: index=1129, title='第1128章 神矿物', 长度=3938
+16:55:09 | WARNING | MainThread   | Treeview 选中失败 iid=1129: 'Treeview' object has no attribute 'blockSignals'
+16:55:09 | INFO    | MainThread   | [PERF] 章节预览渲染 耗时 25.5ms 章节 1129，共 3938 字
+16:55:30 | INFO    | MainThread   | UI 触发搜索: '叶凡'
+16:55:30 | INFO    | search       | 开始搜索: 关键字='叶凡', 总章节=1822, 最大命中=5000, 模糊=False
+16:55:30 | INFO    | search       | 搜索达到上限 5000，在第 208/1822 章终止
+16:55:30 | INFO    | MainThread   | 搜索完成: '叶凡' 命中 5000 条，耗时 7.8ms
+16:55:30 | INFO    | MainThread   | [PERF] 整理搜索结果 耗时 0.5ms 206 个章节分组
+16:55:30 | INFO    | MainThread   | 开始分批渲染 206 个章节到 Treeview
+16:55:30 | INFO    | MainThread   | Treeview 渲染完成：共 206 个章节
+16:55:30 | WARNING | MainThread   | Treeview 选中失败 iid=chapter_3: 'Treeview' object has no attribute 'blockSignals'
+16:55:30 | INFO    | MainThread   | 准备预览首个章节: index=3
+16:55:30 | INFO    | MainThread   | 开始预览章节: index=3, title='第002章 素问', 长度=2270
+16:55:30 | WARNING | MainThread   | Treeview 选中失败 iid=3: 'Treeview' object has no attribute 'blockSignals'
+16:55:30 | INFO    | MainThread   | [PERF] 章节预览渲染 耗时 12.1ms 章节 3，共 2270 字

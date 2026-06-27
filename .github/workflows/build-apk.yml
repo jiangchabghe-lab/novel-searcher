@@ -1,0 +1,58 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install system deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openjdk-17-jdk-headless autoconf libtool pkg-config \
+              zlib1g-dev libncurses5-dev libsdl2-dev libssl-dev libffi-dev liblzma-dev \
+              libbz2-dev libreadline-dev zip unzip python3-venv
+
+      - name: Set Java home
+        run: echo "JAVA_HOME=$(readlink -f /usr/lib/jvm/java-17-openjdk-amd64)" >> $GITHUB_ENV
+
+      - name: Install buildozer
+        run: |
+          python3 -m venv .venv
+          . .venv/bin/activate
+          pip install --upgrade pip setuptools wheel
+          pip install --upgrade buildozer cython
+
+      - name: Init Android SDK/NDK
+        run: |
+          . .venv/bin/activate
+          buildozer android sdk
+
+      - name: Build APK
+        run: |
+          . .venv/bin/activate
+          buildozer android debug
+
+      - name: Copy APK to artifact dir
+        run: |
+          mkdir -p dist
+          cp bin/*.apk dist/ 2>/dev/null || cp bin/*-debug.apk dist/ || true
+          ls -lh dist/
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: novel-searcher-apk
+          path: dist/*.apk
+          if-no-files-found: error

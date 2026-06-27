@@ -1,0 +1,4 @@
+16:56:01 | INFO    | MainThread   | 程序启动，日志文件: E:\17301\Downloads\软件\0-自建程序\1-Python程序\小说\logs\novel_searcher_20260627_165601.log
+16:56:01 | INFO    | MainThread   | 已刷新保存列表，共 1 本小说
+16:56:05 | INFO    | MainThread   | UI 触发加载已保存小说: id=20260627_165414_457221
+16:56:05 | INFO    | MainThread   | 加载已保存小说成功: 《遮天》共 1822 章，耗时 41ms
