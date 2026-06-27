@@ -25,27 +25,20 @@ jobs:
               libbz2-dev libreadline-dev zip unzip python3-venv
 
       - name: Set Java home
-        run: echo "JAVA_HOME=$(readlink -f /usr/lib/jvm/java-17-openjdk-amd64)" >> $GITHUB_ENV
-
-      - name: Install buildozer
         run: |
-          python3 -m venv .venv
-          . .venv/bin/activate
-          pip install --upgrade pip setuptools wheel
-          pip install --upgrade buildozer cython python-for-android
-
-      - name: Init Android SDK/NDK
-        run: |
-          . .venv/bin/activate
-          buildozer android sdk
+          echo "JAVA_HOME=$(readlink -f /usr/lib/jvm/java-17-openjdk-amd64)" >> $GITHUB_ENV
+          echo "ANDROID_API=33" >> $GITHUB_ENV
 
       - name: Build APK
         run: |
+          set -e
+          python3 -m venv .venv
           . .venv/bin/activate
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install --upgrade "buildozer[android]" cython python-for-android certifi
+          buildozer --version
+          buildozer android sdk
           buildozer android debug
-
-      - name: Copy APK to artifact dir
-        run: |
           mkdir -p dist
           cp bin/*.apk dist/ 2>/dev/null || cp bin/*-debug.apk dist/ || true
           ls -lh dist/
