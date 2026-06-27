@@ -32,7 +32,7 @@ jobs:
           python3 -m venv .venv
           . .venv/bin/activate
           pip install --upgrade pip setuptools wheel
-          pip install --upgrade buildozer cython
+          pip install --upgrade buildozer cython python-for-android
 
       - name: Init Android SDK/NDK
         run: |
